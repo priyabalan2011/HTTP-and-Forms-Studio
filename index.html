@@ -2,18 +2,76 @@
 
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css" >
+	<style >
+    label {
+      display: block;
+      margin-bottom: 7px;
+    }
+  </style>
 	<script>
 		// TODO: create a handler
     window.addEventListener("load", function(){
         // TODO: register the handler
+		//alert("load");
+		let form = document.querySelector("form");
+    form.addEventListener("submit", function (event) {
+
+      //alert("submit clicked");
+      let engineInput = document.querySelector("input[name=engine]:checked");
+      //alert(engineInput.value);
+	  if(engineInput != null) {
+		
+	  
+	  let enginechk = document.getElementById(engineInput.value).checked;
+	 // alert(enginechk); 
+
+	  let actionURL;
+	  let actions={};
+	  if(engineInput.value === "google")
+	  {
+		
+		actionURL = "https://www.google.com/";
+		
+	  }
+	   else if(engineInput.value === "duckDuckGo")
+	  {
+		actionURL = "https://duckduckgo.com/";
+	  }
+	   else if(engineInput.value === "bing")
+	  {
+		actionURL = "https://www.bing.com/search";
+	  }
+	  else if(engineInput.value === "ask")
+	  {
+		actionURL = "https://www.ask.com/web";
+	  }
+	  actions[engineInput.value]=actionURL;
+		//alert(actions[engineInput.value]);
+	  //form.setAttribute.actionURL=actions;
+	  //form.setAttribute.action=actionURL;
+	  document.getElementById("searchForm").action = actionURL;
+	}
+	else{
+		alert("Please select one engine");
+	}
     });
+});
 	</script>
 </head>
 
 <body>
 
-	<form id="searchForm">
+	<form id="searchForm" method="get">
     <!-- TODO: add form elements -->
+	<div id="main" align="justify"><br/>
+	 <input type="text" id="q" name="q" value="q" style="margin-left: 20px;"/>
+
+      <label>Google<input type="radio" name="engine" id="google" value="google" /></label>
+      <label> DuckDuckGo<input type="radio" name="engine" id="duckDuckGo" value="duckDuckGo" /></label>
+      <label>Bing<input type="radio" name="engine" id="bing" value="bing" /></label>
+    <label>Ask<input type="radio" name="engine" id="ask" value="ask" /></label>
+    <button>Go!</button></div>
 	</form>
 
 </body>
